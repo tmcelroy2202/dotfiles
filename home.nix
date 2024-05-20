@@ -23,7 +23,13 @@
     pkgs.catppuccin
     pkgs.foot
     pkgs.rbw
+    pkgs.ranger
   ];
+
+  programs.ranger = {
+    enable = true;
+  };
+
   programs.helix = {
     enable = true;
     settings = {

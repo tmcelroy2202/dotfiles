@@ -223,6 +223,7 @@
     age
     sops
     openssh
+    ranger
   ];
 
 
