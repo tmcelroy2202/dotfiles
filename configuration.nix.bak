@@ -1,0 +1,461 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
+
+{
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      <home-manager/nixos>
+    ];
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import ( builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+
+
+ # systemd.user.services.waybar = {
+ #    Unit = {
+ #      Description = "Wayland bar for Sway and Wlroots based compositors";
+ #      PartOf = [ "graphical-session.target" ];
+ #    };
+ #    Install = {
+ #      WantedBy = [ "graphical-session.target" ];
+ #    };
+ #    Service = {
+ #      Type = "simple";
+ #      ExecStart = "/home/tommy/.nix-profile/bin/waybar";
+ #      RestartSec = 5;
+ #      Restart = "always";
+ #    };
+ #  };
+
+  programs.git = {
+    enable = true;
+    package = pkgs.gitFull;
+    config.credential.helper = "libsecret";
+  };
+
+  # home manager
+  home-manager.users.tommy = { pkgs, ... } : {
+    home.stateVersion = "23.11";
+    home.packages = [ pkgs.btop pkgs.firefox ];
+    programs.helix = {
+      enable = true;
+      settings = {
+        theme = "dracula";
+        editor = {
+          line-number = "relative";
+        };
+      };
+    };
+
+    # packageOverrides = pkgs: {
+    #   nur = import ( builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+    #     inherit pkgs;
+    #   };
+    # };
+
+    programs.firefox = { 
+      enable = true;
+      # nativeMessagingHosts = [
+      #   pkgs.tridactyl-native
+      # ];
+      # with pkgs.nur.repos.rycee.firefox-addons; [
+      #   tridactyl
+      #   ublock
+      #   dark-reader
+      # ]
+      
+    };
+
+    wayland.windowManager.sway = {
+      enable = true;
+      config = rec {
+        modifier = "Mod4";
+        # Use kitty as default terminal
+        terminal = "alacritty"; 
+        startup = [
+          # Launch Firefox on start
+          {command = "firefox";}
+          # {command = "exec /home/tommy/.nix-profile/bin/waybar";}
+        ];
+        window.titlebar = false;
+        keybindings = rec {
+          "Mod4+f" = ''exec firefox'';
+          "Mod4+return" = ''exec alacritty'';
+          "Mod4+c" = ''kill'';
+          "Mod4+1" = ''workspace number 1'';
+          "Mod4+2" = ''workspace number 2'';
+          "Mod4+3" = ''workspace number 3'';
+          "Mod4+4" = ''workspace number 4'';
+          "Mod4+5" = ''workspace number 5'';
+          "Mod4+6" = ''workspace number 6'';
+          "Mod4+7" = ''workspace number 7'';
+          "Mod4+8" = ''workspace number 8'';
+          "Mod4+9" = ''workspace number 9'';
+          "Mod4+0" = ''workspace number 10'';
+          "Mod4+Shift+1" = ''move container to workspace number 1'';
+          "Mod4+Shift+2" = ''move container to workspace number 2'';
+          "Mod4+Shift+3" = ''move container to workspace number 3'';
+          "Mod4+Shift+4" = ''move container to workspace number 4'';
+          "Mod4+Shift+5" = ''move container to workspace number 5'';
+          "Mod4+Shift+6" = ''move container to workspace number 6'';
+          "Mod4+Shift+7" = ''move container to workspace number 7'';
+          "Mod4+Shift+8" = ''move container to workspace number 8'';
+          "Mod4+Shift+9" = ''move container to workspace number 9'';
+          "Mod4+Shift+0" = ''move container to workspace number 10'';
+          "Mod4+h" = ''focus left'';
+          "Mod4+l" = ''focus right'';
+          "Mod4+k" = ''focus up'';
+          "Mod4+j" = ''focus down'';
+          "Mod4+shift+h" = ''resize shrink width 10px'';
+          "Mod4+shift+l" = ''resize grow width 10px'';
+          "Mod4+shift+k" = ''resize shrink height 10px'';
+          "Mod4+shift+j" = ''resize grow height 10px'';
+        };
+
+        # colors.focused = { border = "#bd93f9"; childBorder = "#bd93f9"; background = "#bd93f9"; text = "ffffff"; indicator = "#00ff00";};
+        bars = [{
+          "command" = "exec /home/tommy/.nix-profile/bin/waybar";
+          "statusCommand" = "exec /home/tommy/.nix-profile/bin/waybar";        
+          }];
+      };
+
+      
+    };
+
+
+  programs.waybar = { 
+    enable = true;
+    settings = rec { 
+      mainbar = rec { 
+        position = "bottom";
+        modules-left = ["sway/workspaces" "sway/mode"];
+        modules-center = [];
+        modules-right = ["clock" "battery" "network"];
+        network.format = "{essid}";
+        clock.format = "{:%I:%M %Y - %m %d}";
+      };
+    };
+    # style = ''  * {    border: none;    border-radius: 0;    font-family: Source Code Pro;  }  window#waybar {    background: #16191C;    color: #bd93f9;  }  #workspaces button {    padding: 1 5px;  }'';
+
+    # style = rec ''  * {    
+    #      border: none;
+    #      border-radius: 0;
+    #      font-family: Source Code Pro;
+    #      }
+    #      window#waybar {
+    #         background: #16191C;    
+    #         color: #bd93f9;
+    #      }  
+    #     #workspaces button {
+    #         padding: 1 5px;  
+    #     }'';
+
+    style = ''
+
+      * {
+        font-size: 12px;
+        font-family: Source Code Pro, "Font Awesome 6 Free";
+        font-weight: bold;
+        border-radius: 2px;
+        border: none;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      tooltip {
+        background: #282a36;
+      }
+
+      window#waybar {
+        /* background: transparent; */
+        background: #282a36;
+        border-bottom: 2px solid #16191C;
+      }
+
+      window#waybar.solo #window {
+        color: #ff5555;
+      }
+
+      window#waybar.tiled #window {
+        color: #ff5555;
+        
+      }
+
+      * :hover {
+        box-shadow: none;
+        text-shadow: none;
+        border: none;
+        background: transparent;
+      }
+
+      .modules-left,
+      .modules-center,
+      .modules-right {
+        border-bottom: 2px solid #16191C;
+      }
+
+      .modules-left,
+      .modules-center {
+        background: #282a36;
+      }
+
+      .modules-left {
+        padding: 0 5px;
+      }
+
+      #clock { 
+        color: #f1fa8c;
+      }
+      #custom-medialeft,
+      #custom-media,
+      #custom-mediaright,
+      #pulseaudio,
+      #temperature,
+      #custom-fan,
+      #network
+      #battery {
+        color: #bd93f9;
+        margin: 0 15px 0 5px;
+        padding: 0 5px;
+        background: #282a36;
+      }
+
+      #network {
+        color: #bd93f9;
+        margin: 0 10px 0 5px;
+      }
+      #battery {
+        color: #bd93f9;
+        margin: 0 15px 0 5px;
+      }
+
+      #clock {
+        border: none;
+      }
+
+      #workspaces button {
+        color: #ffffff;
+      }
+
+      #workspaces button.active {
+        color: #bd93f9;
+      }
+
+      #workspaces button.focused {
+          background: #4c566a;
+          border-bottom: 3px solid #bd93f9;
+      }
+
+      #custom-media {
+        margin: 0;
+        padding: 0;
+        border-left-style: none;
+        border-right-style: none;
+        border-radius: 0;
+      }
+      #custom-medialeft {
+        padding: 0 5px;
+        border-radius: 2px 0 0 2px;
+        border-right-style: none;
+        margin: 0 0 0 5px;
+      }
+      #custom-mediaright {
+        padding: 0 5px;
+        border-radius: 0 2px 2px 0;
+        border-left-style: none;
+        margin: 0 5px 0 0;
+      }
+
+      #battery {
+        margin: 0 5px 0 5px;
+      }
+
+      #battery.warning {
+        color: #ffb86c;
+      }
+      #battery.critical {
+        color: #ff5555;
+      }
+      #battery.charging {
+        color: #50fa7b;
+      }
+    '';
+    # style = ''  * {#network: #bd93f9;}'';
+  };
+
+  }; 
+
+
+  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
+  # mullvad-vpn = {
+  #   enable = true;
+    
+  # };
+    
+
+
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.sway}/bin/sway";
+        user = "tommy";
+      };
+      default_session = initial_session;
+    };
+  };
+
+
+  security.polkit.enable = true;
+
+  # Bootloader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.useOSProber = true;
+
+  networking.hostName = "nixos"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "America/New_York";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+  };
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+  };
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.tommy = {
+    isNormalUser = true;
+    description = "tommy";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [];
+  };
+
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.displayManager.gdm.wayland = false;
+  # services.xserver.desktopManager.plasma5.enable = true;
+
+  
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+    extraPackages = with pkgs; [
+      swaylock
+      swayidle
+      wl-clipboard
+      mako
+      grim
+      slurp
+      alacritty
+      dmenu
+      swaybg
+    ];
+    extraSessionCommands = ''
+      export SOL_VIDEODRIVER=wayland
+      export QT_QPA_PLATFORM=wayland
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      export MOZ_ENABLE_WAYLAND=1
+    '';
+  };
+
+
+  programs.waybar.enable = true;
+ 
+  # Audio
+  nixpkgs.config.pulseaudio = true;
+  hardware.pulseaudio.support32Bit = true;    ## If compatibility with 32-bit applications is desired.
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+  };
+  
+  environment.variables.EDITOR = "hx";
+  
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    foot
+    wmenu
+    mullvad-vpn
+    upower
+    librespeed-cli
+    gh
+    syncthing
+    # obsidian
+  ];
+
+  services.syncthing.enable = true;
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "23.11"; # Did you read the comment?
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+}
