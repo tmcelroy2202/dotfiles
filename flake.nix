@@ -13,6 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # stylix.url = "github:danth/stylix";
   };
 
@@ -28,6 +32,7 @@
         # system = "x86_64-linux";
         modules = [ 
       	  ./configuration.nix
+          inputs.sops-nix.nixosModules.sops
           # inputs.stylix.nixosModules.stylix
           catppuccin.nixosModules.catppuccin
       	  home-manager.nixosModules.home-manager {

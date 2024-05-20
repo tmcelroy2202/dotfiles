@@ -220,6 +220,9 @@
     nh
     nix-output-monitor
     nvd
+    age
+    sops
+    openssh
   ];
 
 
@@ -227,6 +230,8 @@
     # QT_STYLE_OVERRIDE = "adwaita_dark";
     QT_QPA_QTPLATFORMTHEME = "qt5ct";
     FLAKE = "/home/tommy/.dotfiles";
+    SOPS_AGE_KEY_FILE= "/home/tommy/.dotfiles/.sops/keys.txt";
+    # GITHUB_TOKEN = "$cat ${config.sops.secrets.github-token.path}";
   };
 
   services.syncthing.enable = true;
@@ -242,7 +247,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -295,10 +300,33 @@
   #     name = "FiraCode Nerd Font Mono";
   #   };
   # };
+  services.dbus.packages = [ pkgs.gcr ];
 
 
+  sops = {
+    defaultSopsFile = /home/tommy/.dotfiles/.sops/secrets.yaml;
+    validateSopsFiles = false;
 
-  
+    age = {
+      sshKeyPaths = [ "/home/tommy/.dotfiles/.ssh/genkey1" ];
+      keyFile = "/home/tommy/.dotfiles/.sops/key.txt";
+      generateKey = true;
+    };
+    secrets ={
+      "private_keys/tommy" = {
+        path = "/home/tommy/.ssh/genkey1";
+      };
+      # "github-token/tommy" = {
+      #   path = config.sops.secrets.github-token.path;
+      # };
+    };
+  };
+
+  sops.secrets.tommy-password.neededForUsers = true;
+  users.mutableUsers = false;
+  users.users.tommy.hashedPasswordFile = config.sops.secrets.tommy-password.path;
+
+
 
   
 

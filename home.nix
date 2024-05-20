@@ -22,6 +22,7 @@
     pkgs.nheko
     pkgs.catppuccin
     pkgs.foot
+    pkgs.rbw
   ];
   programs.helix = {
     enable = true;
@@ -460,4 +461,15 @@ programs.waybar = {
     userEmail = "tommy.a.mcelroy@gmail.com";
     userName = "tmcelro2202";
   };
+
+
+  programs.rbw = {
+    enable = true;
+    settings = {
+      base_url = "https://vw.gamingjones.gay";
+      email = "tommy.a.mcelroy@gmail.com";
+      pinentry = pkgs.pinentry-gnome3;
+    };
+  };
+
 }
