@@ -218,6 +218,8 @@
     swappy
     gh
     nh
+    nix-output-monitor
+    nvd
   ];
 
 
