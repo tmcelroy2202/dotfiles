@@ -20,7 +20,7 @@
     # stylix.url = "github:danth/stylix";
   };
 
-  outputs = {self, nixpkgs, home-manager, catppuccin,  ... }@inputs:
+  outputs = {self, nixpkgs, home-manager, catppuccin, ... }@inputs:
     let 
         lib = nixpkgs.lib;
         system = "x86_64-linux";
@@ -48,7 +48,7 @@
         ];
       };
     };
-    homeConfigurations.user = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.tommy = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules = [
         catppuccin.homeManagerModules.catppuccin
@@ -60,6 +60,23 @@
       style = lib.mkForce "gtk2";
       platformTheme = lib.mkForce "gtk2";
     };
+
+    # nixvim = {
+    #   enable = true;
+    #   plugins.lightline.enable = true;
+    #   vimAlias = true;
+
+    #   colorschemes = {
+    #     catppuccin = {
+    #       enable = true;
+    #       flavour = "mocha";
+    #     };
+    #   };
+
+    #   plugins = {
+    #     nix.enable = true;
+    #   };
+    # };
 
   };
    

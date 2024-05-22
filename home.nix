@@ -28,6 +28,9 @@
 
   programs.ranger = {
     enable = true;
+    mappings = {
+      "xc" = "shell wl-copy < %f";
+    };
   };
 
   programs.helix = {
@@ -461,6 +464,12 @@ programs.waybar = {
 
   home.file.".tridactylrc".source = ./tridactylrc;
   home.file.".config/iamb/config.toml".source = ./iamb/config.toml;
+  # home.file.".config/joplin/userchrome.css".source = ./joplin/userchrome.css;
+  # home.file.".config/joplin/userstyle.css".source = ./joplin/userstyle.css;
+  home.file.".config/joplin/userchrome.css".source = config.lib.file.mkOutOfStoreSymlink ./home/tommy/.dotfiles/joplin/userchrome.css;
+  home.file.".config/joplin/userstyle.css".source = config.lib.file.mkOutOfStoreSymlink ./home/tommy/.dotfiles/joplin/userstyle.css;
+  home.file.".config/xournalpp/palette.gpl".source = config.lib.file.mkOutOfStoreSymlink ./home/tommy/.dotfiles/xournal/palette.gpl;
+  home.file.".config/xournalpp/settings.xml".source = config.lib.file.mkOutOfStoreSymlink ./home/tommy/.dotfiles/xournal/settings.xml;
 
   programs.git = {
     enable = true;

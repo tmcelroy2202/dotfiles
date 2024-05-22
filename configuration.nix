@@ -210,8 +210,7 @@
     swaylock
     catppuccin-kvantum
     libsForQt5.qtstyleplugins
-    # obsidian
-    logseq
+    obsidian
     grim
     slurp
     xfce.thunar
@@ -224,6 +223,12 @@
     sops
     openssh
     ranger
+    wl-clipboard
+    joplin
+    joplin-desktop
+    xournalpp
+    gnome.adwaita-icon-theme
+    shared-mime-info
   ];
 
 
@@ -326,6 +331,7 @@
   sops.secrets.tommy-password.neededForUsers = true;
   users.mutableUsers = false;
   users.users.tommy.hashedPasswordFile = config.sops.secrets.tommy-password.path;
+
 
 
 
