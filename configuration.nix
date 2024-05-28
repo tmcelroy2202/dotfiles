@@ -240,6 +240,8 @@
     python3
     pandoc
     pamixer
+    kooha
+    mpv
   ];
 
 

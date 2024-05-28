@@ -366,7 +366,7 @@ programs.waybar = {
     }
 
     #pulseaudio {
-      color: #cba6f7
+      color: #f38ba8
     }
 
     #network {
@@ -489,11 +489,11 @@ programs.waybar = {
   home.file.".config/xournalpp/settings.xml".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/xournal/settings.xml;
   home.file.".cargo/bin/mdpls".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/mdpls/mdpls;
 
-  # programs.git = {
-  #   enable = true;
-  #   userEmail = "tommy.a.mcelroy@gmail.com";
-  #   userName = "tmcelro2202";
-  # };
+  programs.git = {
+    enable = true;
+    userEmail = "tommy.a.mcelroy@gmail.com";
+    userName = "tmcelro2202";
+  };
 
 
   programs.rbw = {
