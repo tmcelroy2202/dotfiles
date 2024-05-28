@@ -195,7 +195,8 @@
   # };
   
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = false;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -216,7 +217,7 @@
     swaylock
     catppuccin-kvantum
     libsForQt5.qtstyleplugins
-    obsidian
+    # obsidian - is unfree, so must toggle allowunfree to true.
     grim
     slurp
     xfce.thunar
@@ -242,6 +243,8 @@
     pamixer
     kooha
     mpv
+    youtube-tui
+    nodePackages.webtorrent-cli
   ];
 
 
