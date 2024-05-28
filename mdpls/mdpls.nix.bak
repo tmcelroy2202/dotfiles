@@ -1,0 +1,28 @@
+{ lib, fetchFromGitHub, rustPlatform }:
+
+rustPlatform.buildRustPackage rec {
+  pname = "mdpls";
+  version = "1.0";
+
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+  };
+
+  src = fetchFromGitHub {
+    owner = "euclio";
+    repo = pname;
+    rev = version;
+    # hash = "sha256-+s5RBC3XSgb8omTbUNLywZnP6jSxZBKSS1BmXOjRF8M=";
+    hash = "sha256-30761508593d85b5743ae39c4209947740eec92d";
+  };
+
+  cargoHash = "";
+
+  meta = with lib; {
+    description = "A markdown LSP with browser based markdown preview";
+    homepage = "https://github.com/euclio/mdpls";
+    license = licenses.unlicense;
+    maintainers = [];
+  };
+}
+

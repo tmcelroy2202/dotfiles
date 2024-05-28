@@ -190,6 +190,9 @@
   };
   
   environment.variables.EDITOR = "hx";
+  # environment.localBinInPath = {
+  #   "~/.cargo/bin"
+  # };
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -197,6 +200,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    gcc
+    rustc
+    cargo
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     foot
@@ -229,6 +235,11 @@
     xournalpp
     gnome.adwaita-icon-theme
     shared-mime-info
+    zettlr
+    kitty
+    python3
+    pandoc
+    pamixer
   ];
 
 

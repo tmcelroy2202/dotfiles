@@ -1,0 +1,12 @@
+[[language]]
+name = "java"
+file-types = ["java","class","txt"]
+
+[[language]]
+name = "markdown"
+file-types = ["md"]
+language-servers = ["mdpls"]
+
+[language-server.mdpls]
+command  = "mdpls"
+config = {markdown.preview.auto = false, markdown.preview.browser = "firefox", markdown.preview.serveStatic = true }

@@ -33,15 +33,22 @@
     };
   };
 
-  programs.helix = {
-    enable = true;
-    settings = {
-      theme =  "catppuccin_mocha";
-      editor = {
-        line-number = "relative";
-      };
-    };
-  };
+  # programs.helix = {
+  #   enable = true;
+  #   settings = {
+  #     theme =  "catppuccin_mocha";
+  #     editor = {
+  #       line-number = "relative";
+  #     };
+  #   };
+  #   # languages = [{
+  #   #   name = "markdown";
+  #   #   file-types = ["md"];
+  #   #   language-servers = ["mdpls"];
+  #   # }];
+    
+
+  # };
   programs.foot = {
     enable = true;
     settings = {
@@ -139,6 +146,7 @@
       eval $(thefuck --alias)
       export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
       set -o vi
+      export PATH=$PATH:/home/tommy/.cargo/bin
     '';
   };
 
@@ -213,6 +221,9 @@
         "Mod4+s" = ''exec grim -g "$(slurp)" - | wl-copy'';
         "Mod4+Shift+s" = ''exec grim -g "$(slurp)" - | swappy -f -'';
         "Mod4+tab" = ''focus next'';
+        "XF86AudioRaiseVolume" =  "exec --no-startup-id pamixer -i 5";
+        "XF86AudioLowerVolume" =  "exec --no-startup-id pamixer -d 5";
+        "XF86AudioMute" =  "exec --no-startup-id pamixer -t";
         "Mod4+Shift+tab" = ''focus prev'';
         "Mod4+return" = ''exec alacritty'';
         "Mod4+c" = ''kill'';
@@ -264,7 +275,7 @@ programs.waybar = {
       position = "bottom";
       modules-left = ["sway/workspaces" "sway/mode"];
       modules-center = [];
-      modules-right = ["clock" "battery" "network"];
+      modules-right = ["pulseaudio" "clock" "battery" "network"];
       network.format = "{essid}";
       clock.format = "{:%I:%M %Y - %m %d}";
     };
@@ -339,11 +350,11 @@ programs.waybar = {
 
     #clock { 
       color: #f1fa8c;
+      padding: 0 5px;
     }
     #custom-medialeft,
     #custom-media,
     #custom-mediaright,
-    #pulseaudio,
     #temperature,
     #custom-fan,
     #network
@@ -352,6 +363,10 @@ programs.waybar = {
       margin: 0 15px 0 5px;
       padding: 0 5px;
       background: #282a36;
+    }
+
+    #pulseaudio {
+      color: #cba6f7
     }
 
     #network {
@@ -466,10 +481,13 @@ programs.waybar = {
   home.file.".config/iamb/config.toml".source = ./iamb/config.toml;
   # home.file.".config/joplin/userchrome.css".source = ./joplin/userchrome.css;
   # home.file.".config/joplin/userstyle.css".source = ./joplin/userstyle.css;
-  home.file.".config/joplin/userchrome.css".source = config.lib.file.mkOutOfStoreSymlink ./home/tommy/.dotfiles/joplin/userchrome.css;
-  home.file.".config/joplin/userstyle.css".source = config.lib.file.mkOutOfStoreSymlink ./home/tommy/.dotfiles/joplin/userstyle.css;
-  home.file.".config/xournalpp/palette.gpl".source = config.lib.file.mkOutOfStoreSymlink ./home/tommy/.dotfiles/xournal/palette.gpl;
-  home.file.".config/xournalpp/settings.xml".source = config.lib.file.mkOutOfStoreSymlink ./home/tommy/.dotfiles/xournal/settings.xml;
+  home.file.".config/joplin/userchrome.css".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/joplin/userchrome.css;
+  home.file.".config/joplin/userstyle.css".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/joplin/userstyle.css;
+  home.file.".config/helix/config.toml".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/helix/config.toml;
+  home.file.".config/helix/languages.toml".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/helix/languages.toml;
+  home.file.".config/xournalpp/palette.gpl".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/xournal/palette.gpl;
+  home.file.".config/xournalpp/settings.xml".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/xournal/settings.xml;
+  home.file.".cargo/bin/mdpls".source = config.lib.file.mkOutOfStoreSymlink /home/tommy/.dotfiles/mdpls/mdpls;
 
   programs.git = {
     enable = true;
