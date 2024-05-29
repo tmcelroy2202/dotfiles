@@ -186,6 +186,12 @@
         "ui.systemUsesDarkTheme" = true; # Dark mode
         "browser.startup.homepage" = "moz-extension://06829059-8a6f-4e51-b07a-6e5481f0a49b/static/newtab.html";
       };
+      search.engines = {
+          "websurfx" = {
+              urls = [{ template = "https://websurfx.pp.ua/search?q={searchTerms}"; }];
+          };
+      };
+      search.default = "websurfx";
 	
     };
     nativeMessagingHosts = [
@@ -505,5 +511,5 @@ programs.waybar = {
       pinentry = pkgs.pinentry-gnome3;
     };
   };
-
+  
 }
