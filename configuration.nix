@@ -243,8 +243,12 @@
     pamixer
     kooha
     mpv
+    vlc
     youtube-tui
     nodePackages.webtorrent-cli
+    ffmpeg
+    yt-dlp
+    ytfzf
   ];
 
 
