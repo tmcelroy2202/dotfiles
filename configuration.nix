@@ -154,7 +154,6 @@
       export _JAVA_AWT_WM_NONREPARENTING=1
       export MOZ_ENABLE_WAYLAND=1
       exec autotiling-rs
-
     '';
   };
 
@@ -164,6 +163,7 @@
     nixos-rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/";
     vi = "hx";
     lock = "swaylock -c 101010";
+    ytfzf = "ytfzf --video-pref='bestvideo[height<=?720]+bestaudio/best'";
   };
 
   programs.waybar.enable = true;
@@ -249,6 +249,7 @@
     ffmpeg
     yt-dlp
     ytfzf
+    redlib
   ];
 
 
@@ -355,6 +356,17 @@
 
 
 
+  systemd.services.redlib = {
+    enable = true;
+    description = "redlib";
+    unitConfig = {
+      Type = "simple";
+    };
+    serviceConfig = {
+      ExecStart = "/run/current-system/sw/bin/redlib";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
   
 
 }

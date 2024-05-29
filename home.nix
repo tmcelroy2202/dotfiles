@@ -165,6 +165,7 @@
         ublock-origin
         tridactyl
         darkreader
+        libredirect
       ];
       userChrome = builtins.readFile ./userChrome.css;
       
