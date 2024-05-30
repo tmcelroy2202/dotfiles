@@ -119,7 +119,7 @@
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.displayManager.gdm.wayland = false;
   # services.xserver.desktopManager.plasma5.enable = true;
-  catppuccin.flavour = "mocha";
+  # catppuccin.flavour = "mocha";
 
   # gtk.catppuccin.enable = true;
   

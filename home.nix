@@ -187,11 +187,15 @@
         "browser.startup.homepage" = "moz-extension://06829059-8a6f-4e51-b07a-6e5481f0a49b/static/newtab.html";
       };
       search.engines = {
-          "websurfx" = {
-              urls = [{ template = "https://websurfx.pp.ua/search?q={searchTerms}"; }];
+          "searxng" = {
+             urls = [{ 
+               template = "https://searx.work/search?q={searchTerms}"; 
+               params = [{ name = "query"; value = "searchTerms"; }];
+             }];
+             definedAliases = [ "@sx" ];
           };
       };
-      search.default = "websurfx";
+      search.default = "searxng";
 	
     };
     nativeMessagingHosts = [
