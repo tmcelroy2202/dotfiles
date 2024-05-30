@@ -17,8 +17,8 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    websurfx.url = "github:neon-mmd/websurfx";
-    websurfx.inputs.nixpkgs.follows = "nixpkgs";
+    # websurfx.url = "github:neon-mmd/websurfx";
+    # websurfx.inputs.nixpkgs.follows = "nixpkgs";
     # stylix.url = "github:danth/stylix";
   };
 
@@ -35,7 +35,7 @@
         modules = [ 
       	  ./configuration.nix
           inputs.sops-nix.nixosModules.sops
-          {environment.systemPackages = [inputs.websurfx.packages.x86_64-linux.websurfx];}
+          # {environment.systemPackages = [inputs.websurfx.packages.x86_64-linux.websurfx];}
           # inputs.stylix.nixosModules.stylix
           catppuccin.nixosModules.catppuccin
       	  home-manager.nixosModules.home-manager {
