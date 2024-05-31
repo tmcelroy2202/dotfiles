@@ -165,6 +165,7 @@
     vi = "hx";
     lock = "swaylock -c 101010";
     ytfzf = "ytfzf --video-pref='bestvideo[height<=?720]+bestaudio/best'";
+    jellycli = "jellycli --config ~/.dotfiles/jellycli.yaml";
   };
 
   programs.waybar.enable = true;
@@ -252,6 +253,7 @@
     ytfzf
     redlib
     thunderbird
+    jellycli
   ];
 
 
