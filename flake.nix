@@ -20,6 +20,7 @@
     # websurfx.url = "github:neon-mmd/websurfx";
     # websurfx.inputs.nixpkgs.follows = "nixpkgs";
     # stylix.url = "github:danth/stylix";
+    # schizofox.url = "github:schizofox/schizofox";
   };
 
   outputs = {self, nixpkgs, home-manager, catppuccin, ... }@inputs:
@@ -44,6 +45,7 @@
       	    home-manager.users.tommy.imports= [ 
               ./home.nix
               catppuccin.homeManagerModules.catppuccin
+              # inputs.schizofox.homeManagerModule
             ];
             home-manager.extraSpecialArgs = { inherit inputs; };
       	    home-manager.backupFileExtension = "backup";
