@@ -24,7 +24,12 @@
     pkgs.foot
     pkgs.rbw
     pkgs.ranger
+    # pkgs.thunderbird
   ];
+
+  # programs.thunderbird = {
+    # enable = true;
+  # };
 
   programs.ranger = {
     enable = true;
@@ -201,14 +206,7 @@
     nativeMessagingHosts = [
       pkgs.tridactyl-native
     ];
-    
-
-    # with pkgs.nur.repos.rycee.firefox-addons; [
-    #   tridactyl
-    #   ublock
-    #   dark-reader
-    # ]
-    
+   
   };
 
   wayland.windowManager.sway = {

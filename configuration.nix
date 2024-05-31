@@ -161,6 +161,7 @@
 
   programs.zsh.shellAliases = {
     nixos-rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles/";
+    rebuild = "~/.dotfiles/scripts/./rebuild.sh";
     vi = "hx";
     lock = "swaylock -c 101010";
     ytfzf = "ytfzf --video-pref='bestvideo[height<=?720]+bestaudio/best'";
@@ -250,6 +251,7 @@
     yt-dlp
     ytfzf
     redlib
+    thunderbird
   ];
 
 
